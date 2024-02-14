@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             username: "islomdev",
             password: "islomdev123",
             database: "distribut_common",
-            entities: ["./entity-admin/**/*.ts"],
+            entities: ["./entity/entity-admin/**/*.ts"],
             migrations: ["./migration/**/*.ts"],
             autoLoadEntities: true,
             synchronize: true,

@@ -1,6 +1,7 @@
 import { Injectable, Scope, } from '@nestjs/common';
 import { DbContextService } from 'src/common';
-import { Unit } from 'src/entity/entity_client/unit';
+import { BankAccount, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, Product, ProductUnit, SaleObject, Settings, Unit, Warehouse } from 'src/entity/entity_client';
+
 import { Connection, ConnectionManager, getConnectionManager } from 'typeorm';
 
 @Injectable({ scope: Scope.REQUEST })
@@ -32,7 +33,9 @@ export class DatabaseConnectionProvider {
         username: 'islomdev',
         password: 'islomdev123',
         database: dbName,
-        entities: [Unit],
+        entities: [
+          BankAccount, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, ProductUnit, Product, SaleObject, Settings, Unit, Warehouse
+        ],
         synchronize: true,
       });
       await connection.connect();

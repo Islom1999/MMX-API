@@ -6,7 +6,7 @@ import {
   Repository,
 } from 'typeorm';
 
-export abstract class BaseClientService<M extends {id:string}, C, U> {
+export abstract class BaseClientService<M extends {id?:string}, C, U> {
   protected repository: Repository<M>;
 
   constructor(
