@@ -1,8 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseInterceptors } from '@nestjs/common';
 import { SettingService } from './setting.service';
 import { BaseClientController } from 'src/base';
 import { Settings } from 'src/entity/entity_client';
+import { SetDbNameInterceptor } from 'src/common';
 
+@UseInterceptors(SetDbNameInterceptor)
 @Controller('setting')
 export class SettingController extends BaseClientController<Settings, Settings, Settings> {
   protected dtoClassCreate(): new () => Settings{

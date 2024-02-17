@@ -10,6 +10,10 @@ export * from './interfaces/role_data'
 export * from './enums/permission_admin'
 export * from './enums/permission_client'
 export * from './enums/role_type'
+export * from './enums/barcode_type'
+export * from './enums/contract_type'
+export * from './enums/contragent_status'
+export * from './enums/contragent_type'
 
 // err_filters
 export * from './err_filter/http_exeption'

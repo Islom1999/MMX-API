@@ -1,9 +1,9 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Contragent } from "./contragent";
 
 @Entity('passport_data')
 export class PassportData {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -15,9 +15,6 @@ export class PassportData {
   @Column()
   address: string;
 
-  @Column()
-  contragent_id: string;
-
-  @OneToMany(() => Contragent, (contragent) => contragent.passport_data)
+  @OneToOne(() => Contragent, (contragent) => contragent.passport_data)
   contragent: Contragent[];
 }

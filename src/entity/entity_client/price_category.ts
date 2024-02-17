@@ -1,10 +1,8 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, OneToMany } from "typeorm";
-import { SaleObject } from "./sale_object";
-import { KassaGroup } from "./kassa_group";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('price_category')
 export class PriceCategory {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -13,10 +11,10 @@ export class PriceCategory {
   @Column()
   is_buying: boolean;
 
-  @ManyToOne(() => SaleObject, (sale_object) => sale_object.price_category)
-  sale_object: SaleObject;
+  // @ManyToOne(() => SaleObject, (sale_object) => sale_object.price_category)
+  // sale_object: SaleObject;
 
-  @OneToMany(() => KassaGroup, kassa => kassa.price_category)
-  kassa_group: KassaGroup[];
+  // @OneToMany(() => KassaGroup, kassa => kassa.price_category)
+  // kassa_group: KassaGroup[];
 }
 

@@ -1,15 +1,18 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
 import { Currency } from './currency';
 
 @Entity('settings')
 export class Settings {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  // One-to-many relationship with Currency
-  @OneToMany(() => Currency, (currency) => currency.settings)
-  currencies: Currency[];
+  @Column()
+  currency_id: string
+
+  @ManyToOne(() => Currency, (currency) => currency.settings)
+  @JoinColumn({name: 'currency_id'})
+  currency: Currency;
 }

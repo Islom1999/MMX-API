@@ -5,7 +5,9 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  JoinColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Kassa } from './kassa';
 import { Currency } from './currency';
@@ -16,28 +18,41 @@ import { PriceCategory } from './price_category';
 
 @Entity('kassa_group')
 export class KassaGroup {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
   @Column()
-  isActive: boolean;
+  is_active: boolean;
 
-  @OneToMany(() => Kassa, kassa => kassa.group)
-  kassa: Kassa[];
+  @Column()
+  is_group: boolean;
 
-  @ManyToOne(() => PriceCategory, price_category => price_category.kassa_group)
-  price_category: PriceCategory;
+  @Column()
+  group_id: string;
 
-  @ManyToOne(() => Warehouse, warehouse => warehouse.kassa_group)
-  warehouse: Warehouse;
+  @ManyToOne(() => KassaGroup, (item) => item.children)
+  @JoinColumn({name: 'group_id'})
+  group: KassaGroup;
 
-  @ManyToOne(() => SaleObject, saleObject => saleObject.kassa_group)
-  sale_object: SaleObject;
+  @OneToMany(() => KassaGroup, (item) => item.group)
+  children: KassaGroup[];
 
-  @ManyToMany(() => ProductUnit)
-  @JoinTable()
-  units: ProductUnit[];
+  // @OneToMany(() => Kassa, kassa => kassa.group)
+  // kassa: Kassa[];
+
+  // @ManyToOne(() => PriceCategory, price_category => price_category.kassa_group)
+  // price_category: PriceCategory;
+
+  // @ManyToOne(() => Warehouse, warehouse => warehouse.kassa_group)
+  // warehouse: Warehouse;
+
+  // @ManyToOne(() => SaleObject, saleObject => saleObject.kassa_group)
+  // sale_object: SaleObject;
+
+  // @ManyToMany(() => ProductUnit)
+  // @JoinTable()
+  // units: ProductUnit[];
 }

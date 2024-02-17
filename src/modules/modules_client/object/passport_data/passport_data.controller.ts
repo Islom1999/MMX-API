@@ -1,8 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseInterceptors } from '@nestjs/common';
 import { PassportDataService } from './passport_data.service';
 import { BaseClientController } from 'src/base';
 import { PassportData } from 'src/entity/entity_client';
+import { SetDbNameInterceptor } from 'src/common';
 
+@UseInterceptors(SetDbNameInterceptor)
 @Controller('passport-data')
 export class PassportDataController extends BaseClientController<PassportData, PassportData, PassportData> {
   protected dtoClassCreate(): new () => PassportData{

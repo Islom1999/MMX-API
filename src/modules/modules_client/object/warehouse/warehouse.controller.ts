@@ -1,9 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseInterceptors } from '@nestjs/common';
 import { WarehouseService } from './warehouse.service';
 import { BaseClientController } from 'src/base';
 import { Warehouse } from 'src/entity/entity_client';
+import { SetDbNameInterceptor } from 'src/common';
 
-@Controller('warehouse')
+@UseInterceptors(SetDbNameInterceptor)
+@Controller('werehouse')
 export class WarehouseController extends BaseClientController<Warehouse, Warehouse, Warehouse> {
   protected dtoClassCreate(): new () => Warehouse{
     return {} as new () => Warehouse;

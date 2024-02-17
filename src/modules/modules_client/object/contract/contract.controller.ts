@@ -1,8 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseInterceptors } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { BaseClientController } from 'src/base';
 import { Contract, Contragent } from 'src/entity/entity_client';
+import { SetDbNameInterceptor } from 'src/common';
 
+@UseInterceptors(SetDbNameInterceptor)
 @Controller('contract')
 export class ContractController extends BaseClientController<Contract, Contract, Contract> {
   protected dtoClassCreate(): new () => Contract{

@@ -1,9 +1,9 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Contragent } from "./contragent";
 
 @Entity('bank_account')
 export class BankAccount {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -12,9 +12,6 @@ export class BankAccount {
   @Column()
   account_number: string;
 
-  @Column()
-  contragent_id: string;
-
-  @OneToMany(() => Contragent, (contragent) => contragent.passport_data)
-  contragent: Contragent[];
+  @OneToOne(() => Contragent, (contragent) => contragent.passport_data)
+  contragent: Contragent;
 }

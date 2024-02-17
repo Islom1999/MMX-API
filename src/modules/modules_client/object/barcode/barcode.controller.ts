@@ -1,18 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
-import { CategoryService } from './category.service';
+import { BarcodeService } from './barcode.service';
 import { PermissionsClient, PermissionsClientGuard, SetDbNameInterceptor } from 'src/common';
-import { CategoryCreateDto, CategoryUpdateDto } from './dto/category.dto';
+import { BarcodeCreateDto, BarcodeUpdateDto } from './dto/barcode.dto';
 
 @UseInterceptors(SetDbNameInterceptor)
-@Controller('category')
-export class CategoryController{
+@Controller('barcode')
+export class BarcodeController{
 
-  constructor(private _service: CategoryService) {}
+  constructor(private readonly _service: BarcodeService) {}
 
   @PermissionsClient('view')
   @UseGuards(PermissionsClientGuard)
   @Post()
-  create(@Body() data: CategoryCreateDto) {
+  create(@Body() data: BarcodeCreateDto) {
     return this._service.create(data);
   }
 
@@ -27,7 +27,7 @@ export class CategoryController{
   }
 
   @Patch(':id')
-  update(@Param('id') id:string, @Body() data:CategoryUpdateDto) {
+  update(@Param('id') id:string, @Body() data:BarcodeUpdateDto) {
     return this._service.update(id, data);
   }
 
@@ -36,4 +36,3 @@ export class CategoryController{
     return this._service.delete(id);
   }
 }
-

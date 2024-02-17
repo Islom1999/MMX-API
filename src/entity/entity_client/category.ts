@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Unit } from "./unit";
 import { Product } from "./product";
 
@@ -16,10 +16,10 @@ export class Category {
   @Column()
   unit_id: string;
   
-  @ManyToOne(() => Unit, (unit) => unit.product_unit)
+  @ManyToOne(() => Unit, (unit) => unit.category)
   @JoinColumn({ name: 'unit_id' })
   unit: Unit;
 
-  @ManyToOne(() => Product, (product) => product.category)
-  products: Product;
+  @OneToMany(() => Product, (product) => product.category)
+  products: Product[];
 }

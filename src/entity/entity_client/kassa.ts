@@ -1,20 +1,19 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { KassaGroup } from "./kassa_group";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Kassa {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
   @Column()
-  isActive: boolean;
+  is_active: boolean;
 
   @Column()
-  isGroup: boolean;
+  is_group: boolean;
 
-  @ManyToOne(() => KassaGroup, (groupKassa) => groupKassa.kassa)
-  group: KassaGroup;
+  // @ManyToOne(() => KassaGroup, (groupKassa) => groupKassa.kassa)
+  // group: KassaGroup;
 }

@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { KassaGroup } from "./kassa_group";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('warehouse')
 export class Warehouse {
@@ -9,6 +8,6 @@ export class Warehouse {
   @Column({ unique: true })
   name: string;
 
-  @OneToMany(() => KassaGroup, kassa => kassa.warehouse)
-  kassa_group: KassaGroup[];
+  // @OneToMany(() => KassaGroup, kassa => kassa.warehouse)
+  // kassa_group: KassaGroup[];
 }

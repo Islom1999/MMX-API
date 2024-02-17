@@ -3,15 +3,17 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  PrimaryColumn,
+  JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { PassportData } from './passport_data';
 import { BankAccount } from './bank_account';
 import { Contract } from './contract';
+import { Contragent_Status, Contragent_Type } from 'src/common';
 
 @Entity('contragent')
 export class Contragent {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -19,22 +21,30 @@ export class Contragent {
 
   @Column({
     type: 'enum',
-    enum: ['client', 'supplier', 'both'],
+    enum: Contragent_Type,
   })
-  type: string;
+  contragent_type: Contragent_Type;
 
   @Column({
     type: 'enum',
-    enum: ['yuridik', 'jismoniy'],
+    enum: Contragent_Status,
   })
-  status: string;
+  contragent_status: Contragent_Status;
+
+  @Column()
+  passport_data_id : string
+
+  @Column()
+  bank_account_id : string
 
   @OneToMany(() => Contract, (contract) => contract.contragent)
   contracts: Contract[];
 
-  @OneToMany(() => PassportData, (passportData) => passportData.contragent)
-  passport_data: PassportData[];
+  @OneToOne(() => PassportData, (passportData) => passportData.contragent)
+  @JoinColumn({name: 'passport_data_id'})
+  passport_data: PassportData;
 
-  @OneToMany(() => BankAccount, (bankAccount) => bankAccount.contragent)
+  @OneToOne(() => BankAccount, (bankAccount) => bankAccount.contragent)
+  @JoinColumn({name: 'bank_account_id'})
   bank_account: BankAccount[];
 }

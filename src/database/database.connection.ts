@@ -1,6 +1,6 @@
 import { Injectable, Scope, } from '@nestjs/common';
 import { DbContextService } from 'src/common';
-import { BankAccount, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, Product, ProductUnit, SaleObject, Settings, Unit, Warehouse } from 'src/entity/entity_client';
+import { BankAccount, Barcode, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, Product, ProductUnit, SaleObject, Settings, Unit, Warehouse } from 'src/entity/entity_client';
 
 import { Connection, ConnectionManager, getConnectionManager } from 'typeorm';
 
@@ -16,7 +16,7 @@ export class DatabaseConnectionProvider {
     const dbName = this.context.get_db_name; // RequestContext orqali dbName olish
 
     let connection: Connection;
-
+    
     if (this.connectionManager.has(dbName)) {
       // Mavjud ulanishni olish yoki yangi ulanish ochish
       connection = this.connectionManager.get(dbName);
@@ -34,13 +34,13 @@ export class DatabaseConnectionProvider {
         password: 'islomdev123',
         database: dbName,
         entities: [
-          BankAccount, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, ProductUnit, Product, SaleObject, Settings, Unit, Warehouse
+          BankAccount, Category, Contract, Contragent, Currency, Kassa, KassaGroup, KassaUsers, PassportData, PriceCategory, ProductUnit, Product, SaleObject, Settings, Unit, Warehouse,Barcode,
         ],
         synchronize: true,
       });
       await connection.connect();
     }
-
+    
     return connection;
   }
 }

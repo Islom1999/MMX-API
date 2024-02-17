@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Organization, RoleAdmin, RoleClient, UserAdmin, UserClient } from 'src/entity/entity_admin';
 
 @Module({
     providers: [],
@@ -10,8 +11,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             port: 5432,
             username: "islomdev",
             password: "islomdev123",
-            database: "distribut_common",
-            entities: ["./entity/entity-admin/**/*.ts"],
+            database: "distribut_common_v1",
+            entities: [UserAdmin, UserClient, RoleAdmin, RoleClient, Organization],
             migrations: ["./migration/**/*.ts"],
             autoLoadEntities: true,
             synchronize: true,

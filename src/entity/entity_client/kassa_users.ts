@@ -1,19 +1,12 @@
 import {
   Entity,
-  PrimaryColumn,
   Column,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Currency } from './currency';
-import { Warehouse } from './warehouse';
-import { SaleObject } from './sale_object';
-import { ProductUnit } from './product_unit';
 
 @Entity('kassa_users')
 export class KassaUsers {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

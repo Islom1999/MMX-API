@@ -1,4 +1,4 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpException, HttpStatus, Scope } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import * as jwt from 'jsonwebtoken';
 import { Request } from 'express';
@@ -44,8 +44,8 @@ export class SetDbNameInterceptor implements NestInterceptor {
         const decoded = jwt.verify(token, process.env.AT_SECRET_CLIENT);
     
         const user_id:string = String(decoded['sub'])
-        
-        const userData = await this._userRepo.findOne({where: {id: user_id}})
+
+        const userData = await this._userRepo.findOne({where: {id: user_id}})  
         const organization = await this._orgRepo.findOne({where: {id: userData.organisation_id}})
 
         if(!organization && !organization?.is_active){
