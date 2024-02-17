@@ -52,7 +52,7 @@ export class OrganisationService {
   }
 
   private async migrateDatabase(tenantDatabaseName: string) {
-    const dockerCommand = `docker exec 78ad62ac0b87 psql -U islomdev -c "CREATE DATABASE ${tenantDatabaseName};"`;
+    const dockerCommand = `docker exec postgres-db psql -U islomdev -c "CREATE DATABASE ${tenantDatabaseName};"`;
   
     return new Promise((resolve, reject) => {
       exec(dockerCommand, (error, stdout, stderr) => {
