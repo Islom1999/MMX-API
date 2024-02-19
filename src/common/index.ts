@@ -41,3 +41,6 @@ export * from './interceptor/db_name.interceptor'
 // shared
 export * from './shared/shared_module'
 
+// Repo
+export * from './repository/product.repo'
+

@@ -8,12 +8,16 @@ import {
   OneToMany,
   JoinColumn,
   PrimaryGeneratedColumn,
+  Tree,
+  TreeParent,
+  TreeChildren,
 } from 'typeorm';
 import { Category } from './category';
 import { ProductUnit } from './product_unit';
 import { Barcode } from './barcode';
 
-@Entity()
+@Entity('product')
+@Tree("closure-table")
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -36,13 +40,20 @@ export class Product {
   @Column({nullable: true})
   product_unit_id: string
 
-  // Self-referencing one-to-many relationship for groups
-  @ManyToOne(() => Product, (product) => product.children)
-  @JoinColumn({name: 'group_id'})
-  group: Product;
+  @TreeParent()
+  // @JoinColumn({name: 'group_id'})
+  parent: Product;
 
-  @OneToMany(() => Product, (product) => product.group)
-  children: Product[];
+  @TreeChildren()
+  children: Product[]; 
+
+  // Self-referencing one-to-many relationship for groups
+  // @ManyToOne(() => Product, (product) => product.children)
+  // @JoinColumn({name: 'group_id'})
+  // group: Product;
+
+  // @OneToMany(() => Product, (product) => product.group)
+  // children: Product[];
 
   @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn({name: 'category_id'})
@@ -54,19 +65,4 @@ export class Product {
 
   @OneToMany(() => Barcode, (barcode) => barcode.product)
   barcode: Barcode[];
-
-  async getAllDescendants(): Promise<Product[]> {
-    const descendants = [];
-
-    // Bu yerda children mavjudligini va iteratsiya qilinishi mumkinligini tekshiramiz
-    if (Array.isArray(this.children)) {
-      for (const child of this.children) {
-        descendants.push(child);
-        const childDescendants = await child.getAllDescendants();
-        descendants.push(...childDescendants);
-      }
-    }
-
-    return descendants;
-  }
 }

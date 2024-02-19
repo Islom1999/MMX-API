@@ -1,18 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
-import { BankAccountService } from './bank-account.service';
+import { PassportDataService } from './passport-data.service';
 import { PermissionsClient, PermissionsClientGuard, SetDbNameInterceptor } from 'src/common';
-import { BankAccountCreateDto, BankAccountUpdateDto } from './dto/bank-account.dto';
+import { PassportDataCreateDto, PassportDataUpdateDto } from './dto/passport-data.dto';
 
 @UseInterceptors(SetDbNameInterceptor)
-@Controller('bank-account')
-export class BankAccountController{
+@Controller('passport-data')
+export class PassportDataController {
 
-  constructor(private readonly _service: BankAccountService) {}
+  constructor(private readonly _service: PassportDataService) {}
 
   @PermissionsClient('view')
   @UseGuards(PermissionsClientGuard)
   @Post()
-  create(@Body() data: BankAccountCreateDto) {
+  create(@Body() data: PassportDataCreateDto) {
     return this._service.create(data);
   }
 
@@ -27,7 +27,7 @@ export class BankAccountController{
   }
 
   @Patch(':id')
-  update(@Param('id') id:string, @Body() data:BankAccountUpdateDto) {
+  update(@Param('id') id:string, @Body() data:PassportDataUpdateDto) {
     return this._service.update(id, data);
   }
 
@@ -35,4 +35,5 @@ export class BankAccountController{
   delete(@Param('id') id:string) {
     return this._service.delete(id);
   }
+  
 }
